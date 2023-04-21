@@ -1,4 +1,4 @@
-import { SubmitKey } from "../store/app";
+import { SubmitKey } from "../store/config";
 import type { LocaleType } from "./index";
 
 const en: LocaleType = {
@@ -19,15 +19,16 @@ const en: LocaleType = {
       Copy: "Copy",
       Stop: "Stop",
       Retry: "Retry",
+      Delete: "Delete",
     },
     Rename: "Rename Chat",
     Typing: "Typing…",
     Input: (submitKey: string) => {
-      var inputHints = `Type something and press ${submitKey} to send`;
+      var inputHints = `${submitKey} to send`;
       if (submitKey === String(SubmitKey.Enter)) {
-        inputHints += ", press Shift + Enter to newline";
+        inputHints += ", Shift + Enter to wrap";
       }
-      return inputHints;
+      return inputHints + ", / to search prompts";
     },
     Send: "Send",
   },
@@ -50,6 +51,8 @@ const en: LocaleType = {
   Home: {
     NewChat: "New Chat",
     DeleteChat: "Confirm to delete the selected conversation?",
+    DeleteToast: "Chat Deleted",
+    Revert: "Revert",
   },
   Settings: {
     Title: "Settings",
@@ -58,6 +61,12 @@ const en: LocaleType = {
       ClearAll: "Clear All Data",
       ResetAll: "Reset All Settings",
       Close: "Close",
+      ConfirmResetAll: {
+        Confirm: "Are you sure you want to reset all configurations?",
+      },
+      ConfirmClearAll: {
+        Confirm: "Are you sure you want to reset all chat?",
+      },
     },
     Lang: {
       Name: "Language", // ATTENTION: if you wanna add a new translation, please do not translate this value, leave it as `Language`
@@ -67,6 +76,9 @@ const en: LocaleType = {
         tw: "繁體中文",
         es: "Español",
         it: "Italiano",
+        tr: "Türkçe",
+        jp: "日本語",
+        de: "Deutsch",
       },
     },
     Avatar: "Avatar",
@@ -95,6 +107,11 @@ const en: LocaleType = {
       ListCount: (builtin: number, custom: number) =>
         `${builtin} built-in, ${custom} user-defined`,
       Edit: "Edit",
+      Modal: {
+        Title: "Prompt List",
+        Add: "Add One",
+        Search: "Search Prompts",
+      },
     },
     HistoryCount: {
       Title: "Attached Messages Count",
@@ -116,7 +133,7 @@ const en: LocaleType = {
         return `Used this month $${used}, subscription $${total}`;
       },
       IsChecking: "Checking...",
-      Check: "Check Again",
+      Check: "Check",
       NoAccess: "Enter API Key to check balance",
     },
     AccessCode: {
