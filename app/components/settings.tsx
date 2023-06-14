@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, HTMLProps, useRef } from "react";
+import { useState, useEffect, useMemo } from "react";
 
 import styles from "./settings.module.scss";
 
@@ -31,7 +31,12 @@ import {
   useAppConfig,
 } from "../store";
 
-import Locale, { AllLangs, changeLang, getLang } from "../locales";
+import Locale, {
+  AllLangs,
+  ALL_LANG_OPTIONS,
+  changeLang,
+  getLang,
+} from "../locales";
 import { copyToClipboard } from "../utils";
 import Link from "next/link";
 import { Path, UPDATE_URL } from "../constant";
@@ -40,6 +45,7 @@ import { ErrorBoundary } from "./error";
 import { InputRange } from "./input-range";
 import { useNavigate } from "react-router-dom";
 import { Avatar, AvatarPicker } from "./emoji";
+import { getClientConfig } from "../config/client";
 
 function EditPromptModal(props: { id: number; onClose: () => void }) {
   const promptStore = usePromptStore();
@@ -419,7 +425,7 @@ export function Settings() {
             >
               {AllLangs.map((lang) => (
                 <option value={lang} key={lang}>
-                  {Locale.Settings.Lang.Options[lang]}
+                  {ALL_LANG_OPTIONS[lang]}
                 </option>
               ))}
             </Select>
@@ -536,6 +542,21 @@ export function Settings() {
               />
             )}
           </ListItem>
+
+          {!accessStore.hideUserApiKey ? (
+            <ListItem
+              title={Locale.Settings.Endpoint.Title}
+              subTitle={Locale.Settings.Endpoint.SubTitle}
+            >
+              <input
+                type="text"
+                value={accessStore.openaiUrl}
+                onChange={(e) =>
+                  accessStore.updateOpenAiUrl(e.currentTarget.value)
+                }
+              ></input>
+            </ListItem>
+          ) : null}
         </List>
 
         <List>
