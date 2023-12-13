@@ -1,6 +1,8 @@
 import cn from "./cn";
 import en from "./en";
+import pt from "./pt";
 import tw from "./tw";
+import id from "./id";
 import fr from "./fr";
 import es from "./es";
 import it from "./it";
@@ -23,8 +25,10 @@ const ALL_LANGS = {
   cn,
   en,
   tw,
+  pt,
   jp,
   ko,
+  id,
   fr,
   es,
   it,
@@ -45,9 +49,11 @@ export const AllLangs = Object.keys(ALL_LANGS) as Lang[];
 export const ALL_LANG_OPTIONS: Record<Lang, string> = {
   cn: "简体中文",
   en: "English",
+  pt: "Português",
   tw: "繁體中文",
   jp: "日本語",
   ko: "한국어",
+  id: "Indonesia",
   fr: "Français",
   es: "Español",
   it: "Italiano",
@@ -115,4 +121,14 @@ export function getLang(): Lang {
 export function changeLang(lang: Lang) {
   setItem(LANG_KEY, lang);
   location.reload();
+}
+
+export function getISOLang() {
+  const isoLangString: Record<string, string> = {
+    cn: "zh-Hans",
+    tw: "zh-Hant",
+  };
+
+  const lang = getLang();
+  return isoLangString[lang] ?? lang;
 }
